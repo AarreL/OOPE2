@@ -33,6 +33,7 @@ public class OmaLista<E> extends LinkedList<E> implements Ooperoiva<E> {
                         apu.asetaSeur(lisattava);
                         lisattava.asetaSeur(häntä);
                         lisattava.asetaEd(apu);
+                        paikkaEiLoydetty = false;
                     }
                     listaindeksi ++;
                 }
