@@ -29,4 +29,11 @@ public class Vitsi extends Dokumentti {
         super(uusitunniste, teksti);
         laji(laji);
     }
+
+    public String toString() {
+        String mjono = super.toString();
+        String[] mjonoosat = mjono.split("///");
+        String merkkiesitys = mjonoosat[0] + "///" + laji + "///" + mjonoosat[1];
+        return merkkiesitys;
+    }
 }

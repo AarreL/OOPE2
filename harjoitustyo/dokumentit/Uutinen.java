@@ -31,4 +31,12 @@ public class Uutinen extends Dokumentti {
         super(uusitunniste, teksti);
         päivämäärä(pvm);
     }
+
+    public String toString() {
+        String pvm = päivämäärä.getDayOfMonth() + "." + päivämäärä.getMonthValue() + "." + päivämäärä.getYear();
+        String mjono = super.toString();
+        String[] mjonoosat = mjono.split("///");
+        String merkkiesitys = mjonoosat[0] + "///" + pvm + "///" + mjonoosat[1];
+        return merkkiesitys;
+    }
 }

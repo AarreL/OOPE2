@@ -47,16 +47,25 @@ public abstract class Dokumentti implements Comparable<Dokumentti> {
         return palautettava;
     }
 
-    @Override
-    public boolean equals(Object verrattava) {
 
-        return false;
+    public boolean equals(Dokumentti verrattava) {
+        if(tunniste == verrattava.tunniste) {
+            return true;
+        } else{
+            return false;
+        }
 
     }
 
+    @Override
     public int compareTo(Dokumentti verrattava) {
-
-        return 1;
+        if(tunniste < verrattava.tunniste) {
+            return -1;
+        }else if(tunniste == verrattava.tunniste) {
+            return 0;
+        } else {
+            return 1;
+        }
     }
 
 }
