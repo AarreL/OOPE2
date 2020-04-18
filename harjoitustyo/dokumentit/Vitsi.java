@@ -16,7 +16,7 @@ public class Vitsi extends Dokumentti {
         return laji;
     }
     public void laji(String uusiarvo) {
-        if(uusiarvo!=null) {
+        if(uusiarvo!=null && uusiarvo.length()>0) {
             laji = uusiarvo;
         } else {
             throw new IllegalArgumentException();

@@ -6,39 +6,33 @@ import harjoitustyo.apulaiset.Ooperoiva;
 
 public class OmaLista<E> extends LinkedList<E> implements Ooperoiva<E> {
 
-    Solmu pää;
-    Solmu häntä;
 
+    //Toteutetaan lisää-metodi
     @SuppressWarnings({"unchecked"})
     public void lisää(E uusi) throws IllegalArgumentException {
-        Solmu lisattava = new Solmu(uusi);
-        if(pää.haeSeur() == null) {
-            pää.asetaSeur(lisattava);
-            häntä.asetaEd(lisattava);
-        }
-        else {
-            int listaindeksi = 0;
-            boolean paikkaEiLoydetty = true;
-            while(paikkaEiLoydetty) {
-                Comparable nykyinen = (Comparable)get(listaindeksi);
-                Solmu apu = new Solmu(get(listaindeksi));
-                if(nykyinen.compareTo(lisattava)>0) {
-                    lisattava.asetaEd(apu.haeEd());
-                    lisattava.asetaSeur(apu);
-                    apu.asetaEd(lisattava);
-                    paikkaEiLoydetty = false;
-                }
-                else {
-                    if(apu.haeSeur() == häntä) {
-                        apu.asetaSeur(lisattava);
-                        lisattava.asetaSeur(häntä);
-                        lisattava.asetaEd(apu);
-                        paikkaEiLoydetty = false;
-                    }
-                    listaindeksi ++;
+        if(uusi != null && uusi instanceof Comparable) {
+            int indlaskuri = 0;
+            int koko = size();
+            Comparable viimeinen;
+            if(koko == 0) {
+                add(0, uusi);
+                indlaskuri = 2;
+            }
+            while(indlaskuri <= koko) {
+                viimeinen = (Comparable)get(koko-1);
+                Comparable nykyinen = (Comparable)get(indlaskuri);
+                if(viimeinen.compareTo(uusi)<=0) {
+                    add(koko, uusi);
+                    indlaskuri = koko+1;
+                } else if(nykyinen.compareTo(uusi)>0) {
+                    add(indlaskuri, uusi);
+                    indlaskuri = koko +1;
+                } else {
+                    indlaskuri++;
                 }
             }
+        } else {
+            throw new IllegalArgumentException();
         }
     }
-
 }

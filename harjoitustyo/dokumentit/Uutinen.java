@@ -10,16 +10,16 @@ import java.time.LocalDate;
 
 public class Uutinen extends Dokumentti {
 
-    private LocalDate päivämäärä;
+    private LocalDate paivamaara;
 
     //Aksessorit
 
-    public LocalDate päivämäärä() {
-        return päivämäärä;
+    public LocalDate paivamaara() {
+        return paivamaara;
     }
-    public void päivämäärä(LocalDate uusiarvo) {
+    public void paivamaara(LocalDate uusiarvo) {
         if(uusiarvo != null) {
-            päivämäärä = uusiarvo;
+            paivamaara = uusiarvo;
         } else {
             throw new IllegalArgumentException();
         }
@@ -29,11 +29,11 @@ public class Uutinen extends Dokumentti {
 
     public Uutinen(int uusitunniste, LocalDate pvm, String teksti) {
         super(uusitunniste, teksti);
-        päivämäärä(pvm);
+        paivamaara(pvm);
     }
 
     public String toString() {
-        String pvm = päivämäärä.getDayOfMonth() + "." + päivämäärä.getMonthValue() + "." + päivämäärä.getYear();
+        String pvm = paivamaara.getDayOfMonth() + "." + paivamaara.getMonthValue() + "." + paivamaara.getYear();
         String mjono = super.toString();
         String[] mjonoosat = mjono.split("///");
         String merkkiesitys = mjonoosat[0] + "///" + pvm + "///" + mjonoosat[1];

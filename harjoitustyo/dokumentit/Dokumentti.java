@@ -1,12 +1,15 @@
 package harjoitustyo.dokumentit;
 
+import harjoitustyo.apulaiset.Tietoinen;
+import java.util.LinkedList;
+
 /*
 *Abstrakti dokumentti-yliluokka vitsi ja uutinen luokille
 *
 */
 
 
-public abstract class Dokumentti implements Comparable<Dokumentti> {
+public abstract class Dokumentti implements Comparable<Dokumentti>, Tietoinen<Dokumentti> {
 
     //Dokumenttien yhteiset tiedot
     private int tunniste;
@@ -19,14 +22,18 @@ public abstract class Dokumentti implements Comparable<Dokumentti> {
         return tunniste;
     }
     public void tunniste(int uusiarvo) {
-        tunniste = uusiarvo;
+        if(uusiarvo > 0) {
+            tunniste = uusiarvo;
+        } else {
+            throw new IllegalArgumentException();
+        }
     }
 
     public String teksti() {
         return teksti;
     }
     public void teksti(String uusiarvo) {
-        if(teksti!=null && teksti.length()<0) {
+        if(uusiarvo!=null && uusiarvo.length()>0) {
             teksti = uusiarvo;
         } else {
             throw new IllegalArgumentException();
@@ -40,6 +47,40 @@ public abstract class Dokumentti implements Comparable<Dokumentti> {
         teksti(tekstiarvo);
     }
 
+
+    public boolean sanatTäsmäävät(LinkedList<String> hakusanat) throws IllegalArgumentException {
+        if(hakusanat!=null && hakusanat.size()>0) {
+            String[] sanalista = teksti.split(" ");
+            int listapit = sanalista.length;
+            int hakupit = hakusanat.size();
+            int h = 0;
+            int l = 0;
+            int laskuri = 0;
+            while(h<hakupit) {
+                l = 0;
+                while(l<listapit) {
+                    if(hakusanat.get(h).equals(sanalista[l])) {
+                        laskuri++;
+                        l = listapit;
+                    }
+                    if(laskuri == hakupit) {
+                        return true;
+                    }
+                    l++;
+                }
+                h++;
+            }
+            return false;
+        } else {
+            throw new IllegalArgumentException();
+        }
+
+    }
+
+    public void siivoa(LinkedList<String> sulkusanat, String välimerkit) throws IllegalArgumentException {
+
+    }
+
     @Override
     public String toString() {
         String palautettava;
@@ -47,12 +88,20 @@ public abstract class Dokumentti implements Comparable<Dokumentti> {
         return palautettava;
     }
 
-
-    public boolean equals(Dokumentti verrattava) {
-        if(tunniste == verrattava.tunniste) {
+    @Override
+    public boolean equals(Object verrattava) {
+        if(this == verrattava) {
             return true;
-        } else{
+        } else if(!(verrattava instanceof Dokumentti)) {
             return false;
+        } else {
+            Dokumentti valmisverrattava = (Dokumentti) verrattava;
+            if(valmisverrattava.tunniste == tunniste) {
+                return true;
+            }
+            else {
+                return false;
+            }
         }
 
     }
