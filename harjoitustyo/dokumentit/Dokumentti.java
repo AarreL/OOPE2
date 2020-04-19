@@ -78,14 +78,43 @@ public abstract class Dokumentti implements Comparable<Dokumentti>, Tietoinen<Do
     }
 
     public void siivoa(LinkedList<String> sulkusanat, String välimerkit) throws IllegalArgumentException {
-        int välipit = välimerkit.length();
-        int välilaskuri = 0;
-        while(välilaskuri<välipit) {
-            String poistom = "" + välimerkit.charAt(välilaskuri);
-            teksti.replaceAll(poistom, "");
-            välilaskuri++;
+        if(sulkusanat!=null && välimerkit!=null && sulkusanat.size()>0 && välimerkit.length()>0) {
+            int välipit = välimerkit.length();
+            int välilaskuri = 0;
+            while(välilaskuri<välipit) {
+                String poistom = "" + välimerkit.charAt(välilaskuri);
+                teksti = teksti.replace(poistom, "");
+                välilaskuri++;
+            }
+            teksti = teksti.toLowerCase();
+
+            String[] tekstisanat = teksti.split(" ");
+            int sanamäärä = tekstisanat.length;
+            int sulkumäärä = sulkusanat.size();
+            int sanalaskuri = 0;
+            int sulkulaskuri = 0;
+            while(sanalaskuri < sanamäärä) {
+                sulkulaskuri = 0;
+                while(sulkulaskuri < sulkumäärä) {
+                    if(tekstisanat[sanalaskuri].equals(sulkusanat.get(sulkulaskuri))) {
+                        if(sanalaskuri == 0) {
+                            teksti = teksti.replace(tekstisanat[sanalaskuri] + " ", "");
+                        }
+                        else if(sanalaskuri == sanamäärä - 1) {
+                            teksti = teksti.replace(" " + tekstisanat[sanalaskuri], "");
+                        }
+                        else {
+                            teksti = teksti.replace(" " + tekstisanat[sanalaskuri] + " ", " ");
+                        }
+                    }
+                    sulkulaskuri++;
+                }
+                sanalaskuri++;
+            }
         }
-        teksti.toLowerCase();
+        else {
+            throw new IllegalArgumentException();
+        }
     }
 
     @Override
