@@ -78,7 +78,14 @@ public abstract class Dokumentti implements Comparable<Dokumentti>, Tietoinen<Do
     }
 
     public void siivoa(LinkedList<String> sulkusanat, String välimerkit) throws IllegalArgumentException {
-
+        int välipit = välimerkit.length();
+        int välilaskuri = 0;
+        while(välilaskuri<välipit) {
+            String poistom = "" + välimerkit.charAt(välilaskuri);
+            teksti.replaceAll(poistom, "");
+            välilaskuri++;
+        }
+        teksti.toLowerCase();
     }
 
     @Override
