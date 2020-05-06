@@ -2,10 +2,12 @@ package harjoitustyo.dokumentit;
 
 import java.time.LocalDate;
 
-/*
-*Uutinen aliluokka jolla mallinnetaan uutista
-*
-*
+/**
+*Konkreettinen uutinen-luokka, jolla mallinnetaan uutista
+*<p>
+*Harjoitustyö, OOPE2, kevät 2020
+*<p>
+*@author Aarre Leinonen (leinonen.aarre@tuni.fi)
 */
 
 public class Uutinen extends Dokumentti {

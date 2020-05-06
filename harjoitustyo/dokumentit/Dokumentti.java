@@ -3,9 +3,12 @@ package harjoitustyo.dokumentit;
 import harjoitustyo.apulaiset.Tietoinen;
 import java.util.LinkedList;
 
-/*
+/**
 *Abstrakti dokumentti-yliluokka vitsi ja uutinen luokille
-*
+*<p>
+*Harjoitustyö, OOPE2, kevät 2020
+*<p>
+*@author Aarre Leinonen (leinonen.aarre@tuni.fi)
 */
 
 

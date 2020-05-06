@@ -1,9 +1,11 @@
 package harjoitustyo.dokumentit;
 
-/*
-*Vitsi aliluokka jolla mallinnetaan uutista
-*
-*
+/**
+*Konkreettinen vitsi-luokka jolla mallinnetaan tekstikokoelman vitsejä
+*<p>
+*Harjoitustyö, OOPE2, kevät 2020
+*<p>
+*@author Aarre Leinonen (leinonen.aarre@tuni.fi)
 */
 
 public class Vitsi extends Dokumentti {

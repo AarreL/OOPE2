@@ -4,6 +4,14 @@ import java.util.LinkedList;
 
 import harjoitustyo.apulaiset.Ooperoiva;
 
+/**
+*OmaLista-luokka joka on peritty javan LinkedLististä 
+*<p>
+*Harjoitustyö, OOPE2, kevät 2020
+*<p>
+*@author Aarre Leinonen (leinonen.aarre@tuni.fi)
+*/
+
 public class OmaLista<E> extends LinkedList<E> implements Ooperoiva<E> {
 
 
