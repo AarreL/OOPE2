@@ -15,17 +15,27 @@ import harjoitustyo.apulaiset.Ooperoiva;
 public class OmaLista<E> extends LinkedList<E> implements Ooperoiva<E> {
 
 
-    //Toteutetaan lisää-metodi
+    /**
+     * lisää-metodi jolla lisätään uusi alkio omalle listalle
+     * 
+     * @param uusi lisättävä alkio
+     * @throws IllegalArgumentException mikäli lisättävä alkio on virheellinen
+     */
     @SuppressWarnings({"unchecked"})
     public void lisää(E uusi) throws IllegalArgumentException {
+        //Tarkistukset
         if(uusi != null && uusi instanceof Comparable) {
+
             int indlaskuri = 0;
             int koko = size();
             Comparable viimeinen;
+            //Jos lisätään ensimmäistä lista-alkiota
             if(koko == 0) {
                 add(0, uusi);
                 indlaskuri = 2;
             }
+            //Jos ei lisätä ensimmäista lista-alkiota, lisätään loput alkiot
+            //kokojärjestyksessä listalle
             while(indlaskuri <= koko) {
                 viimeinen = (Comparable)get(koko-1);
                 Comparable nykyinen = (Comparable)get(indlaskuri);

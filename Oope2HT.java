@@ -1,4 +1,3 @@
-import java.io.FileNotFoundException;
 
 /**
 *Oope2HT-luokka jolla käynnistetään ohjelma
@@ -9,8 +8,18 @@ import java.io.FileNotFoundException;
 */
 
 public class Oope2HT {
+
+    /**
+     * Ensin tervehditään käyttäjään, sitten tarkistetaan
+     * komentoriviparametrien määrä, käynnistetään
+     * main metodi josta käynnistetään ohjelma
+     * ja lopuksi kerrotaan ohjelman päättymisestä
+     * 
+     * @param args komentoriviparametrit
+     */
     public static void main (String[] args) {
-        try{
+        System.out.println("Welcome to L.O.T.");
+        if(args.length == 2) {
             String tiednimi = args[0];
             String stopit = args[1];
 
@@ -18,8 +27,9 @@ public class Oope2HT {
 
             käyttis.käynnistä(tiednimi, stopit);
         }
-        catch(FileNotFoundException e) {
-            
+        else {
+            System.out.println("Wrong number of command-line arguments!");
         }
+        System.out.println("Program terminated.");
     }
 }

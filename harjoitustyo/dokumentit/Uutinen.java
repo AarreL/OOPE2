@@ -15,7 +15,6 @@ public class Uutinen extends Dokumentti {
     private LocalDate paivamaara;
 
     //Aksessorit
-
     public LocalDate paivamaara() {
         return paivamaara;
     }
@@ -28,12 +27,12 @@ public class Uutinen extends Dokumentti {
     }
 
     //Rakentaja
-
     public Uutinen(int uusitunniste, LocalDate pvm, String teksti) {
         super(uusitunniste, teksti);
         paivamaara(pvm);
     }
 
+    //Korvataan yliluokan toString lisäämällä väliin pvm
     public String toString() {
         String pvm = paivamaara.getDayOfMonth() + "." + paivamaara.getMonthValue() + "." + paivamaara.getYear();
         String mjono = super.toString();

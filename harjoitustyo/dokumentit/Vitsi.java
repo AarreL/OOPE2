@@ -13,7 +13,6 @@ public class Vitsi extends Dokumentti {
     private String laji;
 
     //Aksessorit
-
     public String laji() {
         return laji;
     }
@@ -26,12 +25,12 @@ public class Vitsi extends Dokumentti {
     }
 
     //Rakentaja
-
     public Vitsi(int uusitunniste, String laji, String teksti) {
         super(uusitunniste, teksti);
         laji(laji);
     }
 
+    //Korvataan yliluokan toString lisäämällä väliin laji
     public String toString() {
         String mjono = super.toString();
         String[] mjonoosat = mjono.split("///");
