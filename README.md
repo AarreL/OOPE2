@@ -1,22 +1,21 @@
-## Yleistä
+OOPE2 Harjoitustyö
+==================
 
-WETO käyttää aina alkuperäistä _harjoitustyo.apulaiset_-pakkausta. Pakkauksen
-tiedostoja ei siksi ole syytä muuttaa ellet ole Mac- tai Linux-käyttäjä (katso
-alla).
+Tekstikokoelmia käsittelevä ohjelma
+-----------------------------
 
-Projektipohjan juuressa on _.gitignore_-tiedosto, jolla estetään tavukoodin
-tallennus versionhallintaan. Lisää siihen tarvittaessa estoja.
+Harjoitustyö on Javalla toteutettu ohjelma, joka  
+käsittelee sille annettuja tekstikokoelmia tehtävänannossa  
+määrätyllä tavalla.
 
-## Mac- ja Linux-käyttäjät
+Ohjelmaa ohjataan käyttämällä tekstipohjaista käyttöliittymää  
+komentoikkunassa. Ohjelma tunnistaa kaiken kaikkiaan 8 komentoa,  
+komennot ovat add, remove, print, find, polish, echo,  
+reset sekä quit. Osa komennoista vaatii pakollisena parametreja  
+osa haluaa niitä valinnaisena, ja joihinkin ei parametreja  
+saa antaa.
 
-Projektipohjan tiedostojen rivinvaihdot ovat Windows-tyylisiä (CR & LF). Muuta
-rivinvaihdot tarvittaessa Mac/Linux-muotoon (LF). Tämä onnistuu todennäköisesti
-käyttämälläsi editorilla tai IDE:llä. **Älä muuta** _harjoitustyo.apulaiset_
--pakkausta **millään muulla tavoin**.
-
-## Muuta
-
-Perinteisesti tietovarastoissa on projektista kertova README.md-tiedosto. Korvaa
-siksi tämän tiedoston sisältö tekstillä, jossa kuvailet ohjelmaasi omin sanoin.
-Kerro lyhyesti mitä ohjelma tekee ja kuinka sitä käytetään. Käytä tekstissä
-muotoiluja. Tämän dokumentin mittainen teksti riittää hyvin.
+Yksinkertaisuudessaan ohjelma luo käyttäjän antamasta tiedostosta  
+listan jolle tallennetaan joko vitsejä tai uutisia.  
+Listaa ja sillä olevia uutisia voi käsitellä edellä mainituin  
+komennoin.
