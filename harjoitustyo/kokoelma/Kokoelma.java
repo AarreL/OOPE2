@@ -17,7 +17,7 @@ import harjoitustyo.apulaiset.*;
 *<p>
 *Harjoitustyö, OOPE2, kevät 2020
 *<p>
-*@author Aarre Leinonen (leinonen.aarre@tuni.fi)
+*@author Aarre Leinonen (aarre.leinonen@tuni.fi)
 */
 
 public class Kokoelma implements Kokoava<Dokumentti> {
@@ -44,7 +44,7 @@ public class Kokoelma implements Kokoava<Dokumentti> {
      * 
      * @param uusi lisättävä alkio
      * 
-     * @throws IllegalArgumentException
+     * @throws IllegalArgumentException 
      */
 
     public void lisää(Dokumentti uusi) throws IllegalArgumentException {
@@ -65,7 +65,7 @@ public class Kokoelma implements Kokoava<Dokumentti> {
      * dokumentin tunnisteen perusteella. 
      * Käytetään mm. tulostamisessa ja poistamisessa
      * 
-     * @param tunniste 
+     * @param tunniste haettava tunniste
      * @return Dokumentti, jos hakua vastaava löytyi, null jos ei löytynyt
      * 
      */
@@ -89,7 +89,7 @@ public class Kokoelma implements Kokoava<Dokumentti> {
      * komennoksi annetaan reset. Metodilla ladataan tiedostossa
      * olevat vitsit tai uutiset omalle listalle
      * 
-     * @throws FileNotFoundException
+     * @throws FileNotFoundException jos annettu tiedosto on virheellinen
      */
 
     public void lataaTiedosto() throws FileNotFoundException {
@@ -148,5 +148,123 @@ public class Kokoelma implements Kokoava<Dokumentti> {
             laskuri++;
         }
         
+    }
+
+    /**
+     * Käyttöliittymästä käynnistettävä metodi 
+     * jolla lisätään listalle käyttäjän antama 
+     * uusi alkio, hyödyntäen lisää-metodeja kokoelma, 
+     * ja omasta luokasta.
+     *  
+     * @param komennonosat käyttäjän antama komento eriteltynä taulukkoon
+     * @param korpus luotu kokoelma jolle alkio lisätään
+     * @param tiednimi tiedoston nimi
+     * @return muokattu kokoelma
+     */
+    public Kokoelma lisääUusi(String[] komennonosat, Kokoelma korpus, String tiednimi) {
+         //Jos osia olisi ollut enemmän kuin 2, mennään tulostamaan error elsessä
+         if(komennonosat.length == 2) {
+             String lisättävä = komennonosat[1];
+             String[] laatutarkistus = tiednimi.split("_");
+             String[] lisäystiedot = lisättävä.split("///");
+             try {
+                 int tunniste = Integer.parseInt(lisäystiedot[0]);
+                 String teksti = lisäystiedot[2];
+                 /*Käsitellään vitsien lisäys ja poikkeustapaus jossa olisi yritetty lisätä
+                 *uutista vitsien joukkoon siten että yritetään luoda annetuista
+                 *tiedoista uutiselle sopiva LocalDate, mikäli tämä onnistuu
+                 *tulostetaan error. Muussa tapauksessa napataan poikkeus
+                 *ja todetaan että koska uutisen luonti ei onnistu pitää kyseessä
+                 *olla vitsi, joka sitten catchissa lisätään listalle.
+                 */
+                 if(laatutarkistus[0].equals("jokes")) {
+                     try {
+                         LocalDate päiväm = LocalDate.parse(lisäystiedot[1], 
+                         DateTimeFormatter.ofPattern("d.M.yyyy"));
+                         System.out.println("Error!");
+                     } catch(Exception e) {
+                         String laji = lisäystiedot[1];
+                         Vitsi uusi = new Vitsi(tunniste, laji, teksti);
+                         korpus.lisää(uusi);
+                     }
+                 }
+                 else {
+                     //Lisätään uutinen listalle. Vitsin lisäämisen
+                     //yrittäminen heittää poikkeuksen
+                     try {
+                         LocalDate päiväm = LocalDate.parse(lisäystiedot[1], 
+                         DateTimeFormatter.ofPattern("d.M.yyyy"));
+                         Uutinen uusi = new Uutinen(tunniste, päiväm, teksti);
+                         korpus.lisää(uusi);
+                     } catch(Exception e) {
+                         System.out.println("Error!");
+                     }
+                 }
+             } catch(Exception e) {
+                 System.out.println("Error!");
+             }
+         }
+         else {
+             System.out.println("Error!");
+         }
+        return korpus;
+    }
+
+    /**
+     * Käyttöliittymästä käynnistettävä metodi jolla haetaan kokoelmasta 
+     * halutut dokumentit tietyillä hakusanoilla.
+     * 
+     * @param komennonosat käyttäjän antama komento
+     * @param korpus käsiteltävä kokoelma
+     */
+    public void haeAlkio(String[] komennonosat, Kokoelma korpus) {
+        int hakusanalaskuri = 1;
+        int hakusanamäärä = komennonosat.length - 1;
+
+        //Luodaan annetuista hakusanoista taulukko joka voidaan
+        //välittää eteenpäin metodeille.
+        LinkedList<String> hakusanat = new LinkedList<String>();
+        while (hakusanalaskuri<=hakusanamäärä) {
+            hakusanat.add(komennonosat[hakusanalaskuri]);
+            hakusanalaskuri++;
+        }
+        int dokkarilaskuri = 0;
+
+        //Haetaan hakusanoihin täsmääviä dokumentteja
+        while(dokkarilaskuri < korpus.dokumentit().size()) {
+            if(korpus.dokumentit().get(dokkarilaskuri).sanatTäsmäävät(hakusanat)) {
+                System.out.println(korpus.dokumentit().get(dokkarilaskuri).tunniste());
+            }
+            dokkarilaskuri++;
+        }
+    }
+
+    /**
+     * Käyttöliittymästä käynnistettävä metodi jolla tulostetaan
+     * joko kaikki tai vaan valittu dokumentti kokoelmasta.
+     * 
+     * @param komennonosat Käyttäjän antama komento 
+     * @param korpus Käsiteltävä kokoelma
+     */
+    public void tulosta(String[] komennonosat, Kokoelma korpus) {
+        //Tulostetaan tietty dokumentti
+        if(komennonosat.length == 2) {
+            int tunniste = Integer.parseInt(komennonosat[1]);
+            String tulostettava = korpus.hae(tunniste).toString();
+            System.out.println(tulostettava);
+
+        }
+        //Tulostetaan kaikki dokumentit
+        else if(komennonosat.length == 1) {
+            int apulaskuri = 0;
+            while(apulaskuri<korpus.dokumentit().size()) {
+                String tulostettava = korpus.dokumentit().get(apulaskuri).toString();
+                System.out.println(tulostettava);
+                apulaskuri++;
+            }
+        }
+        else {
+            System.out.println("Error!");
+        }
     }
 }

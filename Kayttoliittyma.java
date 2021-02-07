@@ -14,7 +14,7 @@ import harjoitustyo.kokoelma.Kokoelma;
 *<p>
 *Harjoitustyö, OOPE2, kevät 2020
 *<p>
-*@author Aarre Leinonen (leinonen.aarre@tuni.fi)
+*@author Aarre Leinonen (aarre.leinonen@tuni.fi)
 */
 
 public class Kayttoliittyma {
@@ -74,97 +74,20 @@ public class Kayttoliittyma {
                     else if (komento.equals("add")) {
                         //Lisätessä halutaan jakaa komento vain kahteen osaan
                         komennonosat = täysikomento.split(" ", 2);
-                        //Jos osia olisi ollut enemmän kuin 2, mennään tulostamaan error elsessä
-                        if(komennonosat.length == 2) {
-                            String lisättävä = komennonosat[1];
-                            String[] laatutarkistus = tiednimi.split("_");
-                            String[] lisäystiedot = lisättävä.split("///");
-                            try {
-                                int tunniste = Integer.parseInt(lisäystiedot[0]);
-                                String teksti = lisäystiedot[2];
-                                /*Käsitellään vitsien lisäys ja poikkeustapaus jossa olisi yritetty lisätä
-                                *uutista vitsien joukkoon siten että yritetään luoda annetuista
-                                *tiedoista uutiselle sopiva LocalDate, mikäli tämä onnistuu
-                                *tulostetaan error. Muussa tapauksessa napataan poikkeus
-                                *ja todetaan että koska uutisen luonti ei onnistu pitää kyseessä
-                                *olla vitsi, joka sitten catchissa lisätään listalle.
-                                */
-                                if(laatutarkistus[0].equals("jokes")) {
-                                    try {
-                                        LocalDate päiväm = LocalDate.parse(lisäystiedot[1], 
-                                        DateTimeFormatter.ofPattern("d.M.yyyy"));
-                                        System.out.println("Error!");
-                                    } catch(Exception e) {
-                                        String laji = lisäystiedot[1];
-                                        Vitsi uusi = new Vitsi(tunniste, laji, teksti);
-                                        korpus.lisää(uusi);
-                                    }
-                                }
-                                else {
-                                    //Lisätään uutinen listalle. Vitsin lisäämisen
-                                    //yrittäminen heittää poikkeuksen
-                                    try {
-                                        LocalDate päiväm = LocalDate.parse(lisäystiedot[1], 
-                                        DateTimeFormatter.ofPattern("d.M.yyyy"));
-                                        Uutinen uusi = new Uutinen(tunniste, päiväm, teksti);
-                                        korpus.lisää(uusi);
-                                    } catch(Exception e) {
-                                        System.out.println("Error!");
-                                    }
-                                }
-                            } catch(Exception e) {
-                                System.out.println("Error!");
-                            }
-                        }
-                        else {
-                            System.out.println("Error!");
-                        }
+                        korpus = korpus.lisääUusi(komennonosat, korpus, tiednimi);
+
                     }
                     
                     //PRINT-KOMENTO
                     else if (komento.equals("print")) {
-                        //Tulostetaan tietty dokumentti
-                        if(komennonosat.length == 2) {
-                            int tunniste = Integer.parseInt(komennonosat[1]);
-                            String tulostettava = korpus.hae(tunniste).toString();
-                            System.out.println(tulostettava);
-
-                        }
-                        //Tulostetaan kaikki dokumentit
-                        else if(komennonosat.length == 1) {
-                            int apulaskuri = 0;
-                            while(apulaskuri<korpus.dokumentit().size()) {
-                                String tulostettava = korpus.dokumentit().get(apulaskuri).toString();
-                                System.out.println(tulostettava);
-                                apulaskuri++;
-                            }
-                        }
-                        else {
-                            System.out.println("Error!");
-                        }
+                        korpus.tulosta(komennonosat, korpus);
+                        
                     } 
                     
                     //FIND-komento
                     else if (komento.equals("find")) {
-                        int hakusanalaskuri = 1;
-                        int hakusanamäärä = komennonosat.length - 1;
-
-                        //Luodaan annetuista hakusanoista taulukko joka voidaan
-                        //välittää eteenpäin metodeille.
-                        LinkedList<String> hakusanat = new LinkedList<String>();
-                        while (hakusanalaskuri<=hakusanamäärä) {
-                            hakusanat.add(komennonosat[hakusanalaskuri]);
-                            hakusanalaskuri++;
-                        }
-                        int dokkarilaskuri = 0;
-
-                        //Haetaan hakusanoihin täsmääviä dokumentteja
-                        while(dokkarilaskuri < korpus.dokumentit().size()) {
-                            if(korpus.dokumentit().get(dokkarilaskuri).sanatTäsmäävät(hakusanat)) {
-                                System.out.println(korpus.dokumentit().get(dokkarilaskuri).tunniste());
-                            }
-                            dokkarilaskuri++;
-                        }
+                        korpus.haeAlkio(komennonosat, korpus);
+                        
                     }
                     
                     //POLISH-komento

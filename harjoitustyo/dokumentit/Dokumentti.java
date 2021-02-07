@@ -8,7 +8,7 @@ import java.util.LinkedList;
 *<p>
 *Harjoitustyö, OOPE2, kevät 2020
 *<p>
-*@author Aarre Leinonen (leinonen.aarre@tuni.fi)
+*@author Aarre Leinonen (aarre.leinonen@tuni.fi)
 */
 
 
