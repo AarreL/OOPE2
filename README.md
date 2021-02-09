@@ -19,3 +19,8 @@ Yksinkertaisuudessaan ohjelma luo käyttäjän antamasta tiedostosta
 listan jolle tallennetaan joko vitsejä tai uutisia.  
 Listaa ja sillä olevia uutisia voi käsitellä edellä mainituin  
 komennoin.
+
+Ohjelma ajetaan kääntämällä ja suorittamalla Oope2HT.java
+
+Ohjelma tarvitsee toimiakseen kaksi komentoriviparametriä, tiedostonimen 
+jossa vitsit/uutiset  sekä sulkusanalistan (tiedostona) jonka avulla tekstiä voidaan siistiä
